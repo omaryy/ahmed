@@ -1,0 +1,131 @@
+
+public class Main {
+	  static int grid[][]= {{3,8,5},{0,4,2},{1,6,7}};
+	  static int goal[][]={{1,2,3},{4,5,6},{7,8,0}};
+	  
+	  static int max_depth=100;
+	  static int moves[]=new int[max_depth];
+	  static int bestmoves[]=new int[max_depth];
+	  static int best_depth=max_depth;
+	public  static int iscorrect(){
+		for(int i=0;i<3;i++) {
+	for(int j=0;j<3;j++)
+	{
+		if(grid[i][j]!=goal[i][j]) {
+			return 0;
+		}
+	}
+	}
+		return 1 ;
+		  
+	  }
+	public static void main(String[] args) {
+	
+int originx = 0;
+int originy = 0;
+	  for(int i=0;i<3;i++)
+	  {
+		  for(int j=0;i<3;i++)
+		  {
+			  if(grid[i][j]==0)
+			  {
+				  originx=i;
+				  originy=j;
+				  
+				  
+				  
+			  }
+			  
+		  }
+	  }
+	  DFS(originx, originy,0,-1,-1);
+	  for(int i=0;i<best_depth;i++)
+	  {
+		  System.out.println(i+","+bestmoves[i]);
+	  }
+	}
+	public static void DFS(int zero_x,int zero_y,int depth,int playx,int playy)
+	{
+		if(depth>=best_depth)
+		return;
+			if(depth!=0)
+				moves[depth-1]=grid[playx][playy];
+			
+		
+		if(iscorrect()==1) {
+			System.out.println("solution found  with "+depth);
+		best_depth=depth;
+		for(int i=0;i<depth;i++)
+		{
+			bestmoves[i]=moves[i];
+		}
+	}
+		
+		
+		int x1,y1;
+		int x2,y2;
+		int x3,y3;
+		int x4,y4;
+		x1=zero_x+1;
+		y1=zero_y;
+		x2=zero_x;
+		y2=zero_y-1;
+		x3=zero_x;
+		y3=zero_y+1;
+		x4=zero_x;
+		y4=zero_y-1;
+		if(x1==playx&&y1==playy) x1=y1=-1;
+		if(x2==playx&&y2==playy) x2=y2=-1;
+		if(x3==playx&&y3==playy) x3=y3=-1;
+		if(x4==playx&&y4==playy) x4=y4=-1;
+		
+		
+		if((x1>=0)&&(y1>=0)&&(x1<3)&&(y1<3)) {
+		grid[zero_x][zero_y]=grid[x1][y1];
+		grid[x1][y1]=0;
+		DFS(x1, y1,depth+1,zero_x,zero_y);
+		grid[x1][y1]=grid[zero_x][zero_y];
+		grid[zero_x][zero_y]=0;
+		}
+		if((x2>=0)&&(y1>=0)&&(x2<3)&&(y1<3)) {
+			grid[zero_x][zero_y]=grid[x2][y1];
+			grid[x2][y1]=0;
+			DFS(x2, y1,depth+1,zero_x,zero_y);
+			grid[x2][y1]=grid[zero_x][zero_y];
+			grid[zero_x][zero_y]=0;
+			}
+		if((x2>=0)&&(y2>=0)&&(x2<3)&&(y2<3)) {
+			grid[zero_x][zero_y]=grid[x2][y2];
+			grid[x2][y2]=0;
+			DFS(x2, y2,depth+1,zero_x,zero_y);
+			grid[x2][y2]=grid[zero_x][zero_y];
+			grid[zero_x][zero_y]=0;
+			}
+	
+		if((x3>=0)&&(y2>=0)&&(x3<3)&&(y2<3)) {
+			grid[zero_x][zero_y]=grid[x3][y2];
+			grid[x3][y2]=0;
+			DFS(x3, y2,depth+1,zero_x,zero_y);
+			grid[x3][y2]=grid[zero_x][zero_y];
+			grid[zero_x][zero_y]=0;
+			}
+		if((x3>=0)&&(y3>=0)&&(x3<3)&&(y3<3)) {
+			grid[zero_x][zero_y]=grid[x3][y3];
+			grid[x3][y3]=0;
+			DFS(x3, y3,depth+1,zero_x,zero_y);
+			grid[x3][y3]=grid[zero_x][zero_y];
+			grid[zero_x][zero_y]=0;
+			}
+		if((x4>=0)&&(y2>=0)&&(x4<3)&&(y2<3)) {
+			grid[zero_x][zero_y]=grid[x4][y2];
+			grid[x4][y2]=0;
+			DFS(x4, y2,depth+1,zero_x,zero_y);
+			grid[x4][y2]=grid[zero_x][zero_y];
+			grid[zero_x][zero_y]=0;
+			}
+		
+	
+		
+	}
+
+}
